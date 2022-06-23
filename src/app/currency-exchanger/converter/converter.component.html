@@ -1,0 +1,37 @@
+<h1 class="fw-bold">
+  Currency Exchanger
+</h1>
+
+<div class="converter-wrapper shadow">
+  <div class="right">
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Amount</mat-label>
+      <input matInput placeholder="Amount" type="number">
+    </mat-form-field>
+    <div class="from-to">
+      <mat-form-field appearance="fill">
+        <mat-label>From</mat-label>
+        <mat-select>
+          <mat-option>EUR</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button mat-icon-button>
+        <mat-icon>repeat</mat-icon>
+      </button>
+      <mat-form-field appearance="fill">
+        <mat-label>To</mat-label>
+        <mat-select>
+          <mat-option>EUR</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <button mat-raised-button color="primary" class="action-btn">Convert</button>
+  </div>
+  <div class="left text-center">
+    <div class="converstion-result">200.00 USD</div>
+    <div>
+        <small class="text-muted">1.00 EUR = 1.70 USD</small>
+    </div>
+    <button mat-button color="accent">More Details</button>
+  </div>
+</div>

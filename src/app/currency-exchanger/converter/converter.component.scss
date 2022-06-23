@@ -1,0 +1,32 @@
+.converter-wrapper {
+  padding: 10px;
+  background-color: #FFF;
+  display: flex;
+  flex-wrap: wrap;
+
+  >* {
+    padding: 10px;
+    flex: 1;
+  }
+
+  .from-to {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .action-btn {
+    width: 100%;
+    line-height: 50px;
+  }
+
+  .converstion-result {
+    width: 100%;
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+    line-height: 40px;
+    font-size: 20px;
+    font-weight: bold;
+  }
+}

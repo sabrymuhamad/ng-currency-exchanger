@@ -3,13 +3,17 @@
 @include mat-core();
 
 
-$primary: mat-palette($mat-blue-gray);
+$primary: mat-palette($mat-indigo);
 $accent: mat-palette($mat-orange, 400);
 $warn: mat-palette($mat-pink, 500, 900, A100);
 
 $theme: mat-light-theme($primary, $accent, $warn);
 
 @include angular-material-theme($theme);
+
+* {
+  box-sizing: border-box;
+}
 
 html,
 body {
@@ -29,6 +33,10 @@ li {
 
 ul {
   padding: 0;
+}
+
+h1 {
+  text-shadow: none !important;
 }
 
 .container {
@@ -53,6 +61,30 @@ hr {
   justify-content: flex-end;
 }
 
+.text-end {
+  text-align: right;
+}
+
+.text-center {
+  text-align: center;
+}
+
 .d-inline-block {
   display: inline-block !important;
+}
+
+.fw-bold {
+  font-weight: bold !important;
+}
+
+.bg-white {
+  background-color: #FFF;
+}
+
+.shadow {
+  box-shadow: 0 1px 3px rgb(187 180 180 / 70%);
+}
+
+.text-muted {
+  color: rgb(153, 153, 153);
 }
