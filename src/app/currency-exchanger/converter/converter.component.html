@@ -2,36 +2,52 @@
   Currency Exchanger
 </h1>
 
-<div class="converter-wrapper shadow">
-  <div class="right">
-    <mat-form-field appearance="outline" class="w-100">
-      <mat-label>Amount</mat-label>
-      <input matInput placeholder="Amount" type="number">
-    </mat-form-field>
-    <div class="from-to">
-      <mat-form-field appearance="fill">
-        <mat-label>From</mat-label>
-        <mat-select>
-          <mat-option>EUR</mat-option>
-        </mat-select>
+<div class="converter-wrapper">
+  <div class="right shadow">
+    <form (ngSubmit)="convert(converterForm)" #converterForm="ngForm">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Amount</mat-label>
+        <input matInput placeholder="Amount" pattern="[0-9]+" [(ngModel)]="converter.amount" name="amount" type="number" required>
+        <mat-error *ngIf="converterForm.form.controls['amount']&&converterForm.form.controls['amount'].status === 'INVALID'">Amount should not be empty and accepts numbers only.</mat-error>
       </mat-form-field>
-      <button mat-icon-button>
-        <mat-icon>repeat</mat-icon>
+      <div class="from-to">
+        <mat-form-field appearance="fill">
+          <mat-label>From</mat-label>
+          <mat-select [(ngModel)]="converter.from" name="from" required>
+            <mat-option [value]="'EUR'">EUR (Euro)</mat-option>
+            <mat-option [value]="'USD'">USD (United States Dollar)</mat-option>
+
+            <mat-option *ngFor="let s of symbols" [value]="s.name">{{s.name}} ({{s.label}})</mat-option>
+          </mat-select>
+          <mat-spinner matPrefix *ngIf="symbolsLoading" class="d-inline-block" [color]="'primary'" [diameter]="15">
+          </mat-spinner>
+        </mat-form-field>
+        <button type="button" (click)="switchSides()" mat-icon-button>
+          <mat-icon>repeat</mat-icon>
+        </button>
+        <mat-form-field appearance="fill">
+          <mat-label>To</mat-label>
+          <mat-select [(ngModel)]="converter.to" name="to" required>
+            <mat-option [value]="'USD'">USD (United States Dollar)</mat-option>
+            <mat-option [value]="'EUR'">EUR (Euro)</mat-option>
+
+            <mat-option *ngFor="let s of symbols" [value]="s.name">{{s.name}} ({{s.label}})</mat-option>
+          </mat-select>
+          <mat-spinner matPrefix *ngIf="symbolsLoading" class="d-inline-block" [color]="'primary'" [diameter]="15">
+          </mat-spinner>
+        </mat-form-field>
+      </div>
+      <button mat-raised-button type="submit" color="primary" class="action-btn">
+        <mat-spinner *ngIf="btnLoading" class="d-inline-block" [color]="'accent'" [diameter]="15"></mat-spinner> Convert
       </button>
-      <mat-form-field appearance="fill">
-        <mat-label>To</mat-label>
-        <mat-select>
-          <mat-option>EUR</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-    <button mat-raised-button color="primary" class="action-btn">Convert</button>
+    </form>
   </div>
-  <div class="left text-center">
-    <div class="converstion-result">200.00 USD</div>
+  <!---->
+  <div class="left text-center shadow" *ngIf="this.converter.rate" >
+    <div class="converstion-result">{{converter.result | number:'1.0-3' }} {{converter.from}}</div>
     <div>
-        <small class="text-muted">1.00 EUR = 1.70 USD</small>
+      <small class="text-muted">1.00 {{converter.from}} = {{converter.rate | number:'1.0-3'}} {{converter.to}}</small>
     </div>
-    <button mat-button color="accent">More Details</button>
+    <button type="button" mat-button color="accent">More Details</button>
   </div>
 </div>

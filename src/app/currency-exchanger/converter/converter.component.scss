@@ -1,18 +1,33 @@
 .converter-wrapper {
   padding: 10px;
-  background-color: #FFF;
   display: flex;
   flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 20px;
 
   >* {
     padding: 10px;
     flex: 1;
+    background-color: #FFF;
+    max-width: 50%;
+
+    @media(max-width:800px) {
+      max-width: 100%;
+    }
   }
 
   .from-to {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
+
+    @media(max-width:1003px) {
+      flex-direction: column;
+      >*{
+        width: 100%;
+      }
+    }
   }
 
   .action-btn {

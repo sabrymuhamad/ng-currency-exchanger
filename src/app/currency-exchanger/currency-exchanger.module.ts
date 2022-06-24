@@ -5,6 +5,7 @@ import { CurrencyExchangerRoutingModule } from './currency-exchanger-routing.mod
 import { LandingComponent } from './landing/landing.component';
 import { ConverterComponent } from './converter/converter.component';
 import { MaterialsModule } from '../materials/materials.module';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { MaterialsModule } from '../materials/materials.module';
   imports: [
     CommonModule,
     CurrencyExchangerRoutingModule,
-    MaterialsModule
+    MaterialsModule,
+    FormsModule
   ]
 })
 export class CurrencyExchangerModule { }
