@@ -1,0 +1,16 @@
+<mat-card class="example-card">
+  <mat-card-title><small class="text-muted">From</small> {{converter.amount | number:'1.2-2'}} {{converter.from}}
+    <small class="text-muted">To</small> {{converter.result | number:'1.2-2'}} {{converter.to}}</mat-card-title>
+  <mat-card-subtitle>{{converter.timestamp*1000 | date: 'short'}}</mat-card-subtitle>
+  <mat-card-content>
+    <p class="m-0">1.00 {{converter.fromCurrencyFullName}} ({{converter.from}})</p>
+    <p class="m-0"><strong>=</strong></p>
+    <p class="m-0">
+      ({{converter.rate | number:'1.2-2'}}) {{converter.toCurrencyFullName}} ({{converter.to}})
+    </p>
+
+  </mat-card-content>
+  <mat-card-actions>
+    <button class="w-100" type="button" color="accent" mat-stroked-button>More Details</button>
+  </mat-card-actions>
+</mat-card>

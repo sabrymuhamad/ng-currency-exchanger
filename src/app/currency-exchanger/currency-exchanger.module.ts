@@ -6,12 +6,14 @@ import { LandingComponent } from './landing/landing.component';
 import { ConverterComponent } from './converter/converter.component';
 import { MaterialsModule } from '../materials/materials.module';
 import { FormsModule } from '@angular/forms';
+import { ConverstionCardComponent } from './converstion-card/converstion-card.component';
 
 
 @NgModule({
   declarations: [
     LandingComponent,
-    ConverterComponent
+    ConverterComponent,
+    ConverstionCardComponent
   ],
   imports: [
     CommonModule,

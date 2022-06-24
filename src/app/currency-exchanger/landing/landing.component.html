@@ -1,1 +1,8 @@
 <app-converter></app-converter>
+
+<div class="converstion-history">
+    <h2 class="fw-bold">Converstion History</h2>
+    <ul>
+        <li *ngFor="let converter of history"><app-converstion-card [converter]="converter"></app-converstion-card></li>
+    </ul>
+</div>

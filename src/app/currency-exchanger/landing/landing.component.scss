@@ -1,0 +1,17 @@
+.converstion-history {
+    margin-top: 20px;
+
+  ul {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    > li{
+      min-width: calc(33% - 10px);
+      flex: 1;
+      @media (max-width:600px) {
+          min-width: 100%;
+      }
+    }
+  }
+}
