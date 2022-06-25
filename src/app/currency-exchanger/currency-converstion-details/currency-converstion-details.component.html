@@ -3,11 +3,13 @@
     <mat-icon>home</mat-icon> Back to home
   </button>
 </div>
-<app-converter #converterSelector></app-converter>
+<app-converter (onChangeCriteria)="criteriaIsChanged($event)" #converterSelector></app-converter>
 
 <div class="charts shadow">
-  <h2 class="fw-bold">Historical Details for {{currentConverter.from}} <small
-      class="text-muted">({{currentConverter.fromCurrencyFullName}})</small></h2>
+  <h2 class="fw-bold">Historical Details for {{currentConverter.from}}  <small
+      class="text-muted">({{currentConverter.fromCurrencyFullName}})</small> to {{currentConverter.to}}</h2>
   <hr>
 
+  <fusioncharts [chartConfig]="chartConfig" [dataSource]="dataSource">
+  </fusioncharts>
 </div>

@@ -52,4 +52,10 @@ export class CurrencyConverterService extends APIService {
     return this.http.get(this.api() + `symbols`, this.requestOptions());
   }
 
+
+  getTimeseries(startDate: string, endDate: string, base: string, symbol: string) {
+    return this.http.get(this.api() + `timeseries?start_date=${startDate}&end_date=${endDate}&base=${base}&symbols=${symbol}`, this.requestOptions());
+  }
+
+
 }
