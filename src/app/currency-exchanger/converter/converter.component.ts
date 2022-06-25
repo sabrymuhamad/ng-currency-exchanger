@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { Converter, ConverterSymbol } from 'src/app/models/converter.model';
 import { CurrencyConverterService } from 'src/app/services/currency-converter.service';
 
@@ -13,19 +14,37 @@ export class ConverterComponent implements OnInit {
   btnLoading: boolean;
   symbolsLoading: boolean;
   symbols: ConverterSymbol[] = [
-    // {
-    //   "name": "USD",
-    //   "label": "United States Dollar"
-    // }, {
-    //   "name": "EUR",
-    //   "label": "Euro"
-    // }
+    {
+      "name": "USD",
+      "label": "United States Dollar"
+    }, {
+      "name": "EUR",
+      "label": "Euro"
+    }
   ];
-  constructor(private _cc: CurrencyConverterService) { }
+  onPredefinedDetails: boolean;
+  title: string;
+  constructor(private _cc: CurrencyConverterService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.route.queryParams.subscribe((params: any) => {
+      if (Object.keys(params).length > 0) {
+        this.converter.to = params.to.toUpperCase();
+        this.converter.from = params.from.toUpperCase();
+        this.converter.amount = params.amount;
+      }
+    });
     // this.getSymbols();
   }
+
+
+
+  setPredefinedCoverter(converter: Converter) {
+    this.onPredefinedDetails = true;
+    this.title = converter.from + ' - ' + converter.fromCurrencyFullName;
+    this.converter = { ...converter };
+  }
+
 
   convert(converterForm: NgForm) {
     this.btnLoading = true;
@@ -34,14 +53,14 @@ export class ConverterComponent implements OnInit {
         if (s.name === this.converter.to) { this.converter.toCurrencyFullName = s.label }
         if (s.name === this.converter.from) { this.converter.fromCurrencyFullName = s.label }
       });
-      // this.converter.result = 500;
-      // this.converter.rate = 1.05;
-      // this.converter.timestamp = 1656086478;
-      // this._cc.updateConvHistory(this.converter);
-      // this.converter = new Converter();
-      // converterForm.resetForm();
 
-      // return
+      this.converter.result = 500;
+      this.converter.rate = 1.05;
+      this.converter.timestamp = Date.now() / 1000;
+      this.converter.id = Date.now();
+
+      this._cc.updateConvHistory({...this.converter});
+      return
       this._cc.convert(this.converter).subscribe({
         next: (res: any) => {
           this.btnLoading = false;
@@ -49,12 +68,8 @@ export class ConverterComponent implements OnInit {
             this.converter.result = res.result;
             this.converter.rate = res.info.rate;
             this.converter.timestamp = res.info.timestamp;
-            this._cc.updateConvHistory(this.converter);
+            this._cc.updateConvHistory({...this.converter});
           }
-        },
-        complete: () => {
-          this.converter = new Converter();
-          converterForm.reset();
         },
         error: () => {
           this.btnLoading = false;

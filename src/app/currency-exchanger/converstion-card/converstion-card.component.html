@@ -11,6 +11,7 @@
 
   </mat-card-content>
   <mat-card-actions>
-    <button class="w-100" type="button" color="accent" mat-stroked-button>More Details</button>
+    <button [routerLink]="['/home/details/'+converter.id]" class="w-100" type="button" color="accent"
+      mat-stroked-button>More Details</button>
   </mat-card-actions>
 </mat-card>

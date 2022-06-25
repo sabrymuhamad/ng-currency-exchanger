@@ -1,0 +1,13 @@
+<div class="page-title">
+  <button routerLink="/home" mat-button color="primary">
+    <mat-icon>home</mat-icon> Back to home
+  </button>
+</div>
+<app-converter #converterSelector></app-converter>
+
+<div class="charts shadow">
+  <h2 class="fw-bold">Historical Details for {{currentConverter.from}} <small
+      class="text-muted">({{currentConverter.fromCurrencyFullName}})</small></h2>
+  <hr>
+
+</div>

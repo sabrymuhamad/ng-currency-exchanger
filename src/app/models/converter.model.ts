@@ -1,8 +1,9 @@
 export class Converter {
+    id: number;
     from: string;
     to: string;
-    fromCurrencyFullName:string;
-    toCurrencyFullName:string;
+    fromCurrencyFullName: string;
+    toCurrencyFullName: string;
     amount: number;
     result: number;
     rate: number;

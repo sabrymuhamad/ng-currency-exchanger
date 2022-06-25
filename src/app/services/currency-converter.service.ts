@@ -10,6 +10,7 @@ import { BehaviorSubject } from 'rxjs';
 export class CurrencyConverterService extends APIService {
   convHistoryArr: Converter[] = [
     {
+      id: 1,
       amount: 100,
       from: 'EUR',
       fromCurrencyFullName: 'Euro',
@@ -20,6 +21,7 @@ export class CurrencyConverterService extends APIService {
       rate: 0.053254
     },
     {
+      id: 2,
       amount: 100,
       from: 'EGP',
       fromCurrencyFullName: 'Egyptian Pound',
