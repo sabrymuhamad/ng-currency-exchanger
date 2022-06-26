@@ -1,15 +1,21 @@
+import { HttpClientModule } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
+import { ConverterComponent } from './currency-exchanger/converter/converter.component';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule
+        RouterTestingModule,
+        HttpClientModule,
+        FormsModule
       ],
       declarations: [
-        AppComponent
+        AppComponent,
+        ConverterComponent
       ],
     }).compileComponents();
   });
@@ -27,9 +33,9 @@ describe('AppComponent', () => {
   });
 
   it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
+    const fixture = TestBed.createComponent(ConverterComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('ng-currency-exchanger app is running!');
+    expect(compiled.querySelector('h1.fw-bold')?.textContent).toContain('Currency Exchanger');
   });
 });
