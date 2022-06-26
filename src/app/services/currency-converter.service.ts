@@ -16,20 +16,31 @@ export class CurrencyConverterService extends APIService {
       fromCurrencyFullName: 'Euro',
       to: 'USD',
       toCurrencyFullName: 'United States Dollar',
-      result: 5.3254,
+      result: 105.61,
       timestamp: 1656087423,
-      rate: 0.053254
+      rate: 1.053254
     },
     {
       id: 2,
+      amount: 50,
+      from: 'EUR',
+      fromCurrencyFullName: 'Euro',
+      to: 'EGP',
+      toCurrencyFullName: 'Egyptian Pound',
+      result: 991.55,
+      timestamp: 1656234930,
+      rate: 19.83
+    },
+    {
+      id: 3,
       amount: 100,
       from: 'EGP',
       fromCurrencyFullName: 'Egyptian Pound',
       to: 'USD',
       toCurrencyFullName: 'United States Dollar',
-      result: 105.4975,
+      result: 5.33,
       timestamp: 1656079264,
-      rate: 1.054975
+      rate: 0.053
     }
   ];
   private converstionHistory = new BehaviorSubject<Converter[]>(this.convHistoryArr);

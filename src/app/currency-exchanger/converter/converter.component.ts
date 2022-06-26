@@ -31,6 +31,11 @@ export class ConverterComponent implements OnInit {
   constructor(private _cc: CurrencyConverterService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    // defaults 
+    this.converter.from = 'EUR';
+    this.converter.to = 'USD';
+    this.converter.amount = 1;
+    
     this.route.queryParams.subscribe((params: any) => {
       if (Object.keys(params).length > 0) {
         this.converter.to = params.to.toUpperCase();

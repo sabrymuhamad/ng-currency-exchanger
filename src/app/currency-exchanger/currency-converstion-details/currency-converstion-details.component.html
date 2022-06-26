@@ -6,9 +6,13 @@
 <app-converter (onChangeCriteria)="criteriaIsChanged($event)" #converterSelector></app-converter>
 
 <div class="charts shadow">
-  <h2 class="fw-bold">Historical Details for {{currentConverter.from}}  <small
+  <h2 class="fw-bold">Historical Details for {{currentConverter.from}} <small
       class="text-muted">({{currentConverter.fromCurrencyFullName}})</small> to {{currentConverter.to}}</h2>
   <hr>
+
+  <div *ngIf="loading" class="overlayed">
+    <mat-spinner></mat-spinner>
+  </div>
 
   <fusioncharts [chartConfig]="chartConfig" [dataSource]="dataSource">
   </fusioncharts>

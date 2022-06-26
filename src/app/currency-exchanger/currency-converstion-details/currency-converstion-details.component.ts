@@ -1135,21 +1135,24 @@ export class CurrencyConverstionDetailsComponent implements OnInit {
   ];
   startDate: string;
   endDate: string;
+  loading: boolean;
   constructor(private _cc: CurrencyConverterService, private route: ActivatedRoute, private date: CustomDatePipe,
     private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
-    this.converterId = +this.route.snapshot.params['id'];
-    this._cc.getConvHistory.subscribe((res: any[]) => {
-      if (!this.newConverterChecked)
-        this.currentConverter = res.find(c => c.id === this.converterId);
-      if (!this.currentConverter) this.currentConverter = JSON.parse(localStorage.getItem('lastConverter') || '');
-      console.log(this.currentConverter)
-      this.getHistoryRates();
-    });
-    setTimeout(() => {
-      this.converterSelector.setPredefinedCoverter(this.currentConverter);
-    }, 0);
+    this.route.params.subscribe((params: any) => {
+      this.converterId = +params.id;
+      this._cc.getConvHistory.subscribe((res: any[]) => {
+        if (!this.newConverterChecked)
+          this.currentConverter = res.find(c => c.id === this.converterId);
+        if (!this.currentConverter) this.currentConverter = JSON.parse(localStorage.getItem('lastConverter') || '');
+        console.log(this.currentConverter)
+        this.getHistoryRates();
+      });
+      setTimeout(() => {
+        this.converterSelector.setPredefinedCoverter(this.currentConverter);
+      }, 0);
+    })
   }
 
   criteriaIsChanged(newConverter: Converter) {
@@ -1159,6 +1162,7 @@ export class CurrencyConverstionDetailsComponent implements OnInit {
   }
 
   getHistoryRates() {
+    this.loading = true;
     let startYear = new Date().getFullYear() - 1;
     let endYear = new Date().getFullYear();
     let monthStart = new Date().getMonth() + 1;
@@ -1194,6 +1198,8 @@ export class CurrencyConverstionDetailsComponent implements OnInit {
     return
     this._cc.getTimeseries(this.startDate, this.endDate, this.currentConverter.from, this.currentConverter.to).subscribe({
       next: (res: any) => {
+        this.loading = false;
+
         if (res.success) {
           Object.entries(res.rates).forEach(([k, v]: any) => {
             let obj = { label: '', value: '' };
@@ -1212,6 +1218,7 @@ export class CurrencyConverstionDetailsComponent implements OnInit {
         }
       },
       error: (err) => {
+        this.loading = false;
         this._snackBar.open('Something went wrong!', 'Close', {
           duration: 3000,
           panelClass: 'error-alert'

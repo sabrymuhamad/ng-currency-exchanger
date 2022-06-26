@@ -5,8 +5,8 @@
     </div>
 
     <ul class="main-menu">
-      <li><a mat-stroked-button routerLink="/" routerLinkActive="active">EUR-USD Details</a></li>
-      <li><a mat-stroked-button routerLink="/" routerLinkActive="active">EUR-EGP Details</a></li>
+      <li><a mat-stroked-button [routerLink]="['/home/details/'+1]" routerLinkActive="active">EUR-USD Details</a></li>
+      <li><a mat-stroked-button [routerLink]="['/home/details/'+2]" routerLinkActive="active">EUR-EGP Details</a></li>
     </ul>
   </div>
 </header>

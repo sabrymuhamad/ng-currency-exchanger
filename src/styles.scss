@@ -105,3 +105,12 @@ hr {
     color: #FFF;
   }
 }
+
+.overlayed {
+  position: absolute;
+  top: 30%;
+  z-index: 99999999;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
