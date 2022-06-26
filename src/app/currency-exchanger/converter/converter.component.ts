@@ -14,18 +14,7 @@ export class ConverterComponent implements OnInit {
   converter: Converter = new Converter();
   btnLoading: boolean;
   symbolsLoading: boolean;
-  symbols: ConverterSymbol[] = [
-    {
-      "name": "USD",
-      "label": "United States Dollar"
-    }, {
-      "name": "EUR",
-      "label": "Euro"
-    }, {
-      "name": "EGP",
-      "label": "Egyptian Pound"
-    }
-  ];
+  symbols: ConverterSymbol[] = [];
   onPredefinedDetails: boolean;
   title: string;
   constructor(private _cc: CurrencyConverterService, private route: ActivatedRoute) { }
@@ -43,7 +32,7 @@ export class ConverterComponent implements OnInit {
         this.converter.amount = params.amount;
       }
     });
-    // this.getSymbols();
+    this.getSymbols();
   }
 
 
@@ -62,16 +51,7 @@ export class ConverterComponent implements OnInit {
         if (s.name === this.converter.to) { this.converter.toCurrencyFullName = s.label }
         if (s.name === this.converter.from) { this.converter.fromCurrencyFullName = s.label }
       });
-      //////////////////////////////////////////
-      this.converter.result = 500;
-      this.converter.rate = 1.05;
-      this.converter.timestamp = Date.now() / 1000;
-      this.converter.id = Date.now();
-      localStorage.setItem('lastConverter', JSON.stringify(this.converter));
-      this.onChangeCriteria.emit({ ...this.converter });
-      this._cc.updateConvHistory({ ...this.converter });
-      ////////////////////////////////////////////////////////
-      return
+ 
       this._cc.convert(this.converter).subscribe({
         next: (res: any) => {
           this.btnLoading = false;
@@ -80,6 +60,8 @@ export class ConverterComponent implements OnInit {
             this.converter.rate = res.info.rate;
             this.converter.timestamp = res.info.timestamp;
             this.converter.id = Date.now();
+            localStorage.setItem('lastConverter', JSON.stringify(this.converter));
+            this.onChangeCriteria.emit({ ...this.converter });
             this._cc.updateConvHistory({ ...this.converter });
           }
         },
