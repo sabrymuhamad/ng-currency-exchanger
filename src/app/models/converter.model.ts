@@ -10,7 +10,8 @@ export class Converter {
     timestamp: number;
 }
 
-export class ConverterSymbol {
+export interface IConverterSymbol {
     label: any;
     name: string;
+    icon: string
 }

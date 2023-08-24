@@ -2,7 +2,7 @@ import { APIService } from './api.service';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Converter } from '../models/converter.model';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -60,7 +60,10 @@ export class CurrencyConverterService extends APIService {
   }
 
   getSymbols() {
-    return this.http.get(this.api() + `symbols`, this.requestOptions());
+    return this.http.get('https://api.currencyfreaks.com/v2.0/supported-currencies').pipe(map((res: any) => {
+      return Object.values(res.supportedCurrenciesMap).filter(v => v)
+    }));
+    // return this.http.get(this.api() + `symbols`, this.requestOptions());
   }
 
 

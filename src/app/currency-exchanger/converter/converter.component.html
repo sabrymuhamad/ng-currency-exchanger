@@ -20,7 +20,11 @@
         <mat-form-field appearance="fill">
           <mat-label>From</mat-label>
           <mat-select [(ngModel)]="converter.from" name="from" required [disabled]="onPredefinedDetails">
-            <mat-option *ngFor="let s of symbols" [value]="s.name">{{s.name}} ({{s.label}})</mat-option>
+            <mat-option *ngFor="let s of symbols" [value]="s.name">
+              <div class="d-flex align-items-center fs-12 white-space-nowrap">
+                <img [src]="s.icon" width="20" alt="">&nbsp;<span>{{s.name}}</span> <span>({{s.label}})</span>
+              </div>
+            </mat-option>
           </mat-select>
           <mat-spinner matPrefix *ngIf="symbolsLoading" class="d-inline-block" [color]="'primary'" [diameter]="15">
           </mat-spinner>
@@ -32,7 +36,11 @@
         <mat-form-field appearance="fill">
           <mat-label>To</mat-label>
           <mat-select [(ngModel)]="converter.to" name="to" required>
-            <mat-option *ngFor="let s of symbols" [value]="s.name">{{s.name}} ({{s.label}})</mat-option>
+            <mat-option *ngFor="let s of symbols" [value]="s.name">
+              <div class="d-flex align-items-center fs-12 white-space-nowrap">
+                <img [src]="s.icon" width="20" alt="">&nbsp;<span>{{s.name}}</span> <span>({{s.label}})</span>
+              </div>
+            </mat-option>
           </mat-select>
           <mat-spinner matPrefix *ngIf="symbolsLoading" class="d-inline-block" [color]="'primary'" [diameter]="15">
           </mat-spinner>
@@ -50,7 +58,7 @@
       <small class="text-muted">1.00 {{converter.from}} = {{converter.rate | number:'1.2-2'}}
         {{converter.to}}</small>
     </div>
-    <button *ngIf="!onPredefinedDetails" [routerLink]="['/home/details/'+converter.id]" type="button"
-      mat-button color="accent">More Details</button>
+    <button *ngIf="!onPredefinedDetails" [routerLink]="['/home/details/'+converter.id]" type="button" mat-button
+      color="accent">More Details</button>
   </div>
 </div>

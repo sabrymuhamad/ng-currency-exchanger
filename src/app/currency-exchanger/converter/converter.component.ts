@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { Converter, ConverterSymbol } from 'src/app/models/converter.model';
+import { Converter, IConverterSymbol } from 'src/app/models/converter.model';
 import { CurrencyConverterService } from 'src/app/services/currency-converter.service';
 
 @Component({
@@ -14,7 +14,7 @@ export class ConverterComponent implements OnInit {
   converter: Converter = new Converter();
   btnLoading: boolean;
   symbolsLoading: boolean;
-  symbols: ConverterSymbol[] = [];
+  symbols: IConverterSymbol[] = [];
   onPredefinedDetails: boolean;
   title: string;
   constructor(private _cc: CurrencyConverterService, private route: ActivatedRoute) { }
@@ -24,7 +24,7 @@ export class ConverterComponent implements OnInit {
     this.converter.from = 'EUR';
     this.converter.to = 'USD';
     this.converter.amount = 1;
-    
+
     this.route.queryParams.subscribe((params: any) => {
       if (Object.keys(params).length > 0) {
         this.converter.to = params.to.toUpperCase();
@@ -51,7 +51,7 @@ export class ConverterComponent implements OnInit {
         if (s.name === this.converter.to) { this.converter.toCurrencyFullName = s.label }
         if (s.name === this.converter.from) { this.converter.fromCurrencyFullName = s.label }
       });
- 
+
       this._cc.convert(this.converter).subscribe({
         next: (res: any) => {
           this.btnLoading = false;
@@ -79,15 +79,17 @@ export class ConverterComponent implements OnInit {
 
     this._cc.getSymbols().subscribe({
       next: (res: any) => {
-        if (res.success) {
-          Object.entries(res.symbols).forEach(([key, value]) => {
-            let s = new ConverterSymbol();
-            s.name = key;
-            s.label = value;
-            this.symbols.push(s);
-          });
-          this.symbolsLoading = false;
-        }
+        console.log(res);
+
+        res.forEach((item: any) => {
+          let s = {} as IConverterSymbol;
+          s.name = item.currencyName;
+          s.label = item.currencyCode;
+          s.icon = item.icon;
+          this.symbols.push(s);
+        });
+        this.symbolsLoading = false;
+
       }, error: () => {
         this.symbolsLoading = false;
       }

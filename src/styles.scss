@@ -63,6 +63,18 @@ hr {
   display: inline-block !important;
 }
 
+.d-flex {
+  display: flex;
+}
+
+.align-items-center {
+  align-items: center;
+}
+
+.white-space-nowrap {
+  white-space: nowrap;
+}
+
 .fw-bold {
   font-weight: bold !important;
 }
@@ -94,6 +106,10 @@ hr {
   button {
     color: #FFF;
   }
+}
+
+.fs-12 {
+  font-size: 12px;
 }
 
 .overlayed {
